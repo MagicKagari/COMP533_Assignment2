@@ -1,0 +1,22 @@
+class Resource{
+  sm{
+    
+    StandBy{
+      locatedByOrgnization -> ObtainedByOrgnization;
+      locatedByTransportationCompany -> OnTheWay;
+    }
+  
+    ObtainedByOrgnization{
+      handOutPackage -> Distributed;
+      specialistWorking -> OnSiteOperation;
+    }
+    
+    OnTheWay{
+      arrived -> StandBy;
+    }
+    
+    Distributed{}
+    OnSiteOperation{}
+    
+  }
+}

@@ -1,0 +1,98 @@
+class Emergency
+{
+  location;
+1 -- * Organization;
+  * -- * Community;
+  * -- * Ressource;
+  * -- * RessourceNeeds;
+}
+
+class Organization
+{
+  name;
+  location;
+  availableRessources;
+  * -- * Person;
+  * -- * Ressource;
+}
+
+class Ressource
+{
+  description;
+* -- * Transportation;
+  }
+
+class Transportation
+{
+  companyName;
+  int capacityWeight;
+  int capacitySpace;
+  int availability;
+  int range;
+}
+
+class Community
+{
+  name;
+}
+
+class Charity
+{
+  isA Organization;
+}
+
+class LocalOrganization
+{
+  isA Organization;
+}
+
+class Skill
+{
+  isA Ressource;
+}
+
+class Goods
+{
+  int quantityUnits;
+int dimension;
+int weight;
+isA Ressource;
+}
+
+class Air
+{
+  isA Transportation;
+}
+
+class Sea
+{
+  isA Transportation;
+}
+
+class Land
+{
+  isA Transportation;
+}
+
+class RessourceNeeds
+{
+    int requiredQuantity;
+}
+
+class Person
+{
+  name;
+  int age;
+  gender;
+  * -- * Skill;
+}
+
+class Coordinator
+{
+  Name;
+  id;
+  * -- * Ressource;
+  * -- * Emergency;
+  * -- * Transportation;
+}
+

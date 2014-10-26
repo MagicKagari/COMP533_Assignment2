@@ -1,0 +1,46 @@
+class Emergency{
+  sm{
+      
+    LocalEmergency{
+      reportEmergency -> Reported;
+    }
+      Reported{
+
+         checkNeededResource -> ResourceNeeded;
+      }
+      
+    ResourceNeeded{
+      findNeededRessource -> ResourceFound;
+    }
+    
+      ResourceFound{
+       locateResource -> ResourceLocating;
+      }
+      
+      ResourceLocating{
+
+        failToLocate -> ResourceLocating;
+        successfullToLocate -> ResourceLocated;
+      }
+      
+      ResourceLocated{
+        identifyTransportation -> TransportationFound;
+      }
+    
+    TransportationFound{
+      sendTransportation -> TransportationSent;
+    }
+    
+    TransportationSent{
+      transportationArrived -> TransportResource;
+    }
+    
+    TransportResource{
+      ressourceArrived -> EmergencyResolved;
+    }
+      
+      EmergencyResolved{}
+    }
+    
+    
+}
