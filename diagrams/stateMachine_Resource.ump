@@ -1,0 +1,36 @@
+class Resource{
+  sm{
+    
+    StandBy{
+      neededResource -> OrganizationFound;
+    }
+  
+    OrganizationFound{
+      getResource -> ProcessingResource;
+    }
+    
+    ProcessingResource{
+      human -> ContactPerson;
+      packagedGoods -> GettingDescription;
+    }
+    
+    ContactPerson{
+      unableToContact -> StandBy;
+      personContacted -> PersonArriving;
+    }
+    
+    GettingDescription{
+      awaitTransportation -> TransportationArriving;
+    }
+    
+    PersonArriving{
+      personHelps -> HelpingEmergency;
+    }
+    
+    TransportationArriving{
+      sendRessource -> HelpingEmergency;
+    }
+    
+    HelpingEmergency{}
+  }
+}
