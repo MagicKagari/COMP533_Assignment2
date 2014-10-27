@@ -15,24 +15,24 @@ public class Organization
   //Organization Attributes
   private String name;
   private String location;
-  private String availableRessources;
+  private String availableResources;
 
   //Organization Associations
   private List<Person> persons;
-  private List<Ressource> ressources;
+  private List<Resource> resources;
   private Emergency emergency;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public Organization(String aName, String aLocation, String aAvailableRessources, Emergency aEmergency)
+  public Organization(String aName, String aLocation, String aAvailableResources, Emergency aEmergency)
   {
     name = aName;
     location = aLocation;
-    availableRessources = aAvailableRessources;
+    availableResources = aAvailableResources;
     persons = new ArrayList<Person>();
-    ressources = new ArrayList<Ressource>();
+    resources = new ArrayList<Resource>();
     boolean didAddEmergency = setEmergency(aEmergency);
     if (!didAddEmergency)
     {
@@ -60,10 +60,10 @@ public class Organization
     return wasSet;
   }
 
-  public boolean setAvailableRessources(String aAvailableRessources)
+  public boolean setAvailableResources(String aAvailableResources)
   {
     boolean wasSet = false;
-    availableRessources = aAvailableRessources;
+    availableResources = aAvailableResources;
     wasSet = true;
     return wasSet;
   }
@@ -78,9 +78,9 @@ public class Organization
     return location;
   }
 
-  public String getAvailableRessources()
+  public String getAvailableResources()
   {
-    return availableRessources;
+    return availableResources;
   }
 
   public Person getPerson(int index)
@@ -113,33 +113,33 @@ public class Organization
     return index;
   }
 
-  public Ressource getRessource(int index)
+  public Resource getResource(int index)
   {
-    Ressource aRessource = ressources.get(index);
-    return aRessource;
+    Resource aResource = resources.get(index);
+    return aResource;
   }
 
-  public List<Ressource> getRessources()
+  public List<Resource> getResources()
   {
-    List<Ressource> newRessources = Collections.unmodifiableList(ressources);
-    return newRessources;
+    List<Resource> newResources = Collections.unmodifiableList(resources);
+    return newResources;
   }
 
-  public int numberOfRessources()
+  public int numberOfResources()
   {
-    int number = ressources.size();
+    int number = resources.size();
     return number;
   }
 
-  public boolean hasRessources()
+  public boolean hasResources()
   {
-    boolean has = ressources.size() > 0;
+    boolean has = resources.size() > 0;
     return has;
   }
 
-  public int indexOfRessource(Ressource aRessource)
+  public int indexOfResource(Resource aResource)
   {
-    int index = ressources.indexOf(aRessource);
+    int index = resources.indexOf(aResource);
     return index;
   }
 
@@ -232,86 +232,86 @@ public class Organization
     return wasAdded;
   }
 
-  public static int minimumNumberOfRessources()
+  public static int minimumNumberOfResources()
   {
     return 0;
   }
 
-  public boolean addRessource(Ressource aRessource)
+  public boolean addResource(Resource aResource)
   {
     boolean wasAdded = false;
-    if (ressources.contains(aRessource)) { return false; }
-    if (ressources.contains(aRessource)) { return false; }
-    if (ressources.contains(aRessource)) { return false; }
-    ressources.add(aRessource);
-    if (aRessource.indexOfOrganization(this) != -1)
+    if (resources.contains(aResource)) { return false; }
+    if (resources.contains(aResource)) { return false; }
+    if (resources.contains(aResource)) { return false; }
+    resources.add(aResource);
+    if (aResource.indexOfOrganization(this) != -1)
     {
       wasAdded = true;
     }
     else
     {
-      wasAdded = aRessource.addOrganization(this);
+      wasAdded = aResource.addOrganization(this);
       if (!wasAdded)
       {
-        ressources.remove(aRessource);
+        resources.remove(aResource);
       }
     }
     return wasAdded;
   }
 
-  public boolean removeRessource(Ressource aRessource)
+  public boolean removeResource(Resource aResource)
   {
     boolean wasRemoved = false;
-    if (!ressources.contains(aRessource))
+    if (!resources.contains(aResource))
     {
       return wasRemoved;
     }
 
-    int oldIndex = ressources.indexOf(aRessource);
-    ressources.remove(oldIndex);
-    if (aRessource.indexOfOrganization(this) == -1)
+    int oldIndex = resources.indexOf(aResource);
+    resources.remove(oldIndex);
+    if (aResource.indexOfOrganization(this) == -1)
     {
       wasRemoved = true;
     }
     else
     {
-      wasRemoved = aRessource.removeOrganization(this);
+      wasRemoved = aResource.removeOrganization(this);
       if (!wasRemoved)
       {
-        ressources.add(oldIndex,aRessource);
+        resources.add(oldIndex,aResource);
       }
     }
     return wasRemoved;
   }
 
-  public boolean addRessourceAt(Ressource aRessource, int index)
+  public boolean addResourceAt(Resource aResource, int index)
   {  
     boolean wasAdded = false;
-    if(addRessource(aRessource))
+    if(addResource(aResource))
     {
       if(index < 0 ) { index = 0; }
-      if(index > numberOfRessources()) { index = numberOfRessources() - 1; }
-      ressources.remove(aRessource);
-      ressources.add(index, aRessource);
+      if(index > numberOfResources()) { index = numberOfResources() - 1; }
+      resources.remove(aResource);
+      resources.add(index, aResource);
       wasAdded = true;
     }
     return wasAdded;
   }
 
-  public boolean addOrMoveRessourceAt(Ressource aRessource, int index)
+  public boolean addOrMoveResourceAt(Resource aResource, int index)
   {
     boolean wasAdded = false;
-    if(ressources.contains(aRessource))
+    if(resources.contains(aResource))
     {
       if(index < 0 ) { index = 0; }
-      if(index > numberOfRessources()) { index = numberOfRessources() - 1; }
-      ressources.remove(aRessource);
-      ressources.add(index, aRessource);
+      if(index > numberOfResources()) { index = numberOfResources() - 1; }
+      resources.remove(aResource);
+      resources.add(index, aResource);
       wasAdded = true;
     } 
     else 
     {
-      wasAdded = addRessourceAt(aRessource, index);
+      wasAdded = addResourceAt(aResource, index);
     }
     return wasAdded;
   }
@@ -343,11 +343,11 @@ public class Organization
     {
       aPerson.removeOrganization(this);
     }
-    ArrayList<Ressource> copyOfRessources = new ArrayList<Ressource>(ressources);
-    ressources.clear();
-    for(Ressource aRessource : copyOfRessources)
+    ArrayList<Resource> copyOfResources = new ArrayList<Resource>(resources);
+    resources.clear();
+    for(Resource aResource : copyOfResources)
     {
-      aRessource.removeOrganization(this);
+      aResource.removeOrganization(this);
     }
     Emergency placeholderEmergency = emergency;
     this.emergency = null;
@@ -361,7 +361,7 @@ public class Organization
     return super.toString() + "["+
             "name" + ":" + getName()+ "," +
             "location" + ":" + getLocation()+ "," +
-            "availableRessources" + ":" + getAvailableRessources()+ "]" + System.getProperties().getProperty("line.separator") +
+            "availableResources" + ":" + getAvailableResources()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "emergency = "+(getEmergency()!=null?Integer.toHexString(System.identityHashCode(getEmergency())):"null")
      + outputString;
   }

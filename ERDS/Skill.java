@@ -5,7 +5,7 @@ package ERDS;
 import java.util.*;
 
 // line 51 "../classdiagram.ump"
-public class Skill extends Ressource
+public class Skill extends Resource
 {
 
   //------------------------

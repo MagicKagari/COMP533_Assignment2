@@ -10,7 +10,7 @@ class Emergency{
       }
       
     ResourceNeeded{
-      findNeededRessource -> ResourceFound;
+      findNeededResource -> ResourceFound;
     }
     
       ResourceFound{

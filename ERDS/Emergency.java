@@ -23,8 +23,8 @@ public class Emergency
   //Emergency Associations
   private List<Organization> organizations;
   private List<Community> communities;
-  private List<Ressource> ressources;
-  private List<RessourceNeeds> ressourceNeeds;
+  private List<Resource> resources;
+  private List<ResourceNeeds> resourceNeeds;
   private List<Coordinator> coordinators;
 
   //------------------------
@@ -36,8 +36,8 @@ public class Emergency
     location = aLocation;
     organizations = new ArrayList<Organization>();
     communities = new ArrayList<Community>();
-    ressources = new ArrayList<Ressource>();
-    ressourceNeeds = new ArrayList<RessourceNeeds>();
+    resources = new ArrayList<Resource>();
+    resourceNeeds = new ArrayList<ResourceNeeds>();
     coordinators = new ArrayList<Coordinator>();
     setSm(Sm.LocalEmergency);
   }
@@ -106,7 +106,7 @@ public class Emergency
     return wasEventProcessed;
   }
 
-  public boolean findNeededRessource()
+  public boolean findNeededResource()
   {
     boolean wasEventProcessed = false;
     
@@ -315,63 +315,63 @@ public class Emergency
     return index;
   }
 
-  public Ressource getRessource(int index)
+  public Resource getResource(int index)
   {
-    Ressource aRessource = ressources.get(index);
-    return aRessource;
+    Resource aResource = resources.get(index);
+    return aResource;
   }
 
-  public List<Ressource> getRessources()
+  public List<Resource> getResources()
   {
-    List<Ressource> newRessources = Collections.unmodifiableList(ressources);
-    return newRessources;
+    List<Resource> newResources = Collections.unmodifiableList(resources);
+    return newResources;
   }
 
-  public int numberOfRessources()
+  public int numberOfResources()
   {
-    int number = ressources.size();
+    int number = resources.size();
     return number;
   }
 
-  public boolean hasRessources()
+  public boolean hasResources()
   {
-    boolean has = ressources.size() > 0;
+    boolean has = resources.size() > 0;
     return has;
   }
 
-  public int indexOfRessource(Ressource aRessource)
+  public int indexOfResource(Resource aResource)
   {
-    int index = ressources.indexOf(aRessource);
+    int index = resources.indexOf(aResource);
     return index;
   }
 
-  public RessourceNeeds getRessourceNeed(int index)
+  public ResourceNeeds getResourceNeed(int index)
   {
-    RessourceNeeds aRessourceNeed = ressourceNeeds.get(index);
-    return aRessourceNeed;
+    ResourceNeeds aResourceNeed = resourceNeeds.get(index);
+    return aResourceNeed;
   }
 
-  public List<RessourceNeeds> getRessourceNeeds()
+  public List<ResourceNeeds> getResourceNeeds()
   {
-    List<RessourceNeeds> newRessourceNeeds = Collections.unmodifiableList(ressourceNeeds);
-    return newRessourceNeeds;
+    List<ResourceNeeds> newResourceNeeds = Collections.unmodifiableList(resourceNeeds);
+    return newResourceNeeds;
   }
 
-  public int numberOfRessourceNeeds()
+  public int numberOfResourceNeeds()
   {
-    int number = ressourceNeeds.size();
+    int number = resourceNeeds.size();
     return number;
   }
 
-  public boolean hasRessourceNeeds()
+  public boolean hasResourceNeeds()
   {
-    boolean has = ressourceNeeds.size() > 0;
+    boolean has = resourceNeeds.size() > 0;
     return has;
   }
 
-  public int indexOfRessourceNeed(RessourceNeeds aRessourceNeed)
+  public int indexOfResourceNeed(ResourceNeeds aResourceNeed)
   {
-    int index = ressourceNeeds.indexOf(aRessourceNeed);
+    int index = resourceNeeds.indexOf(aResourceNeed);
     return index;
   }
 
@@ -410,9 +410,9 @@ public class Emergency
     return 0;
   }
 
-  public Organization addOrganization(String aName, String aLocation, String aAvailableRessources)
+  public Organization addOrganization(String aName, String aLocation, String aAvailableResources)
   {
-    return new Organization(aName, aLocation, aAvailableRessources, this);
+    return new Organization(aName, aLocation, aAvailableResources, this);
   }
 
   public boolean addOrganization(Organization aOrganization)
@@ -559,166 +559,166 @@ public class Emergency
     return wasAdded;
   }
 
-  public static int minimumNumberOfRessources()
+  public static int minimumNumberOfResources()
   {
     return 0;
   }
 
-  public boolean addRessource(Ressource aRessource)
+  public boolean addResource(Resource aResource)
   {
     boolean wasAdded = false;
-    if (ressources.contains(aRessource)) { return false; }
-    ressources.add(aRessource);
-    if (aRessource.indexOfEmergency(this) != -1)
+    if (resources.contains(aResource)) { return false; }
+    resources.add(aResource);
+    if (aResource.indexOfEmergency(this) != -1)
     {
       wasAdded = true;
     }
     else
     {
-      wasAdded = aRessource.addEmergency(this);
+      wasAdded = aResource.addEmergency(this);
       if (!wasAdded)
       {
-        ressources.remove(aRessource);
+        resources.remove(aResource);
       }
     }
     return wasAdded;
   }
 
-  public boolean removeRessource(Ressource aRessource)
+  public boolean removeResource(Resource aResource)
   {
     boolean wasRemoved = false;
-    if (!ressources.contains(aRessource))
+    if (!resources.contains(aResource))
     {
       return wasRemoved;
     }
 
-    int oldIndex = ressources.indexOf(aRessource);
-    ressources.remove(oldIndex);
-    if (aRessource.indexOfEmergency(this) == -1)
+    int oldIndex = resources.indexOf(aResource);
+    resources.remove(oldIndex);
+    if (aResource.indexOfEmergency(this) == -1)
     {
       wasRemoved = true;
     }
     else
     {
-      wasRemoved = aRessource.removeEmergency(this);
+      wasRemoved = aResource.removeEmergency(this);
       if (!wasRemoved)
       {
-        ressources.add(oldIndex,aRessource);
+        resources.add(oldIndex,aResource);
       }
     }
     return wasRemoved;
   }
 
-  public boolean addRessourceAt(Ressource aRessource, int index)
+  public boolean addResourceAt(Resource aResource, int index)
   {  
     boolean wasAdded = false;
-    if(addRessource(aRessource))
+    if(addResource(aResource))
     {
       if(index < 0 ) { index = 0; }
-      if(index > numberOfRessources()) { index = numberOfRessources() - 1; }
-      ressources.remove(aRessource);
-      ressources.add(index, aRessource);
+      if(index > numberOfResources()) { index = numberOfResources() - 1; }
+      resources.remove(aResource);
+      resources.add(index, aResource);
       wasAdded = true;
     }
     return wasAdded;
   }
 
-  public boolean addOrMoveRessourceAt(Ressource aRessource, int index)
+  public boolean addOrMoveResourceAt(Resource aResource, int index)
   {
     boolean wasAdded = false;
-    if(ressources.contains(aRessource))
+    if(resources.contains(aResource))
     {
       if(index < 0 ) { index = 0; }
-      if(index > numberOfRessources()) { index = numberOfRessources() - 1; }
-      ressources.remove(aRessource);
-      ressources.add(index, aRessource);
+      if(index > numberOfResources()) { index = numberOfResources() - 1; }
+      resources.remove(aResource);
+      resources.add(index, aResource);
       wasAdded = true;
     } 
     else 
     {
-      wasAdded = addRessourceAt(aRessource, index);
+      wasAdded = addResourceAt(aResource, index);
     }
     return wasAdded;
   }
 
-  public static int minimumNumberOfRessourceNeeds()
+  public static int minimumNumberOfResourceNeeds()
   {
     return 0;
   }
 
-  public boolean addRessourceNeed(RessourceNeeds aRessourceNeed)
+  public boolean addResourceNeed(ResourceNeeds aResourceNeed)
   {
     boolean wasAdded = false;
-    if (ressourceNeeds.contains(aRessourceNeed)) { return false; }
-    ressourceNeeds.add(aRessourceNeed);
-    if (aRessourceNeed.indexOfEmergency(this) != -1)
+    if (resourceNeeds.contains(aResourceNeed)) { return false; }
+    resourceNeeds.add(aResourceNeed);
+    if (aResourceNeed.indexOfEmergency(this) != -1)
     {
       wasAdded = true;
     }
     else
     {
-      wasAdded = aRessourceNeed.addEmergency(this);
+      wasAdded = aResourceNeed.addEmergency(this);
       if (!wasAdded)
       {
-        ressourceNeeds.remove(aRessourceNeed);
+        resourceNeeds.remove(aResourceNeed);
       }
     }
     return wasAdded;
   }
 
-  public boolean removeRessourceNeed(RessourceNeeds aRessourceNeed)
+  public boolean removeResourceNeed(ResourceNeeds aResourceNeed)
   {
     boolean wasRemoved = false;
-    if (!ressourceNeeds.contains(aRessourceNeed))
+    if (!resourceNeeds.contains(aResourceNeed))
     {
       return wasRemoved;
     }
 
-    int oldIndex = ressourceNeeds.indexOf(aRessourceNeed);
-    ressourceNeeds.remove(oldIndex);
-    if (aRessourceNeed.indexOfEmergency(this) == -1)
+    int oldIndex = resourceNeeds.indexOf(aResourceNeed);
+    resourceNeeds.remove(oldIndex);
+    if (aResourceNeed.indexOfEmergency(this) == -1)
     {
       wasRemoved = true;
     }
     else
     {
-      wasRemoved = aRessourceNeed.removeEmergency(this);
+      wasRemoved = aResourceNeed.removeEmergency(this);
       if (!wasRemoved)
       {
-        ressourceNeeds.add(oldIndex,aRessourceNeed);
+        resourceNeeds.add(oldIndex,aResourceNeed);
       }
     }
     return wasRemoved;
   }
 
-  public boolean addRessourceNeedAt(RessourceNeeds aRessourceNeed, int index)
+  public boolean addResourceNeedAt(ResourceNeeds aResourceNeed, int index)
   {  
     boolean wasAdded = false;
-    if(addRessourceNeed(aRessourceNeed))
+    if(addResourceNeed(aResourceNeed))
     {
       if(index < 0 ) { index = 0; }
-      if(index > numberOfRessourceNeeds()) { index = numberOfRessourceNeeds() - 1; }
-      ressourceNeeds.remove(aRessourceNeed);
-      ressourceNeeds.add(index, aRessourceNeed);
+      if(index > numberOfResourceNeeds()) { index = numberOfResourceNeeds() - 1; }
+      resourceNeeds.remove(aResourceNeed);
+      resourceNeeds.add(index, aResourceNeed);
       wasAdded = true;
     }
     return wasAdded;
   }
 
-  public boolean addOrMoveRessourceNeedAt(RessourceNeeds aRessourceNeed, int index)
+  public boolean addOrMoveResourceNeedAt(ResourceNeeds aResourceNeed, int index)
   {
     boolean wasAdded = false;
-    if(ressourceNeeds.contains(aRessourceNeed))
+    if(resourceNeeds.contains(aResourceNeed))
     {
       if(index < 0 ) { index = 0; }
-      if(index > numberOfRessourceNeeds()) { index = numberOfRessourceNeeds() - 1; }
-      ressourceNeeds.remove(aRessourceNeed);
-      ressourceNeeds.add(index, aRessourceNeed);
+      if(index > numberOfResourceNeeds()) { index = numberOfResourceNeeds() - 1; }
+      resourceNeeds.remove(aResourceNeed);
+      resourceNeeds.add(index, aResourceNeed);
       wasAdded = true;
     } 
     else 
     {
-      wasAdded = addRessourceNeedAt(aRessourceNeed, index);
+      wasAdded = addResourceNeedAt(aResourceNeed, index);
     }
     return wasAdded;
   }
@@ -818,17 +818,17 @@ public class Emergency
     {
       aCommunity.removeEmergency(this);
     }
-    ArrayList<Ressource> copyOfRessources = new ArrayList<Ressource>(ressources);
-    ressources.clear();
-    for(Ressource aRessource : copyOfRessources)
+    ArrayList<Resource> copyOfResources = new ArrayList<Resource>(resources);
+    resources.clear();
+    for(Resource aResource : copyOfResources)
     {
-      aRessource.removeEmergency(this);
+      aResource.removeEmergency(this);
     }
-    ArrayList<RessourceNeeds> copyOfRessourceNeeds = new ArrayList<RessourceNeeds>(ressourceNeeds);
-    ressourceNeeds.clear();
-    for(RessourceNeeds aRessourceNeed : copyOfRessourceNeeds)
+    ArrayList<ResourceNeeds> copyOfResourceNeeds = new ArrayList<ResourceNeeds>(resourceNeeds);
+    resourceNeeds.clear();
+    for(ResourceNeeds aResourceNeed : copyOfResourceNeeds)
     {
-      aRessourceNeed.removeEmergency(this);
+      aResourceNeed.removeEmergency(this);
     }
     ArrayList<Coordinator> copyOfCoordinators = new ArrayList<Coordinator>(coordinators);
     coordinators.clear();

@@ -28,7 +28,7 @@ class Resource{
     }
     
     TransportationArriving{
-      sendRessource -> HelpingEmergency;
+      sendResource -> HelpingEmergency;
     }
     
     HelpingEmergency{}

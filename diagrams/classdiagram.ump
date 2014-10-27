@@ -5,20 +5,20 @@ class Emergency
   location;
 1 -- * Organization;
   * -- * Community;
-  * -- * Ressource;
-  * -- * RessourceNeeds;
+  * -- * Resource;
+  * -- * ResourceNeeds;
 }
 
 class Organization
 {
   name;
   location;
-  availableRessources;
+  availableResources;
   * -- * Person;
-  * -- * Ressource;
+  * -- * Resource;
 }
 
-class Ressource
+class Resource
 {
   description;
 * -- * Transportation;
@@ -50,7 +50,7 @@ class LocalOrganization
 
 class Skill
 {
-  isA Ressource;
+  isA Resource;
 }
 
 class Goods
@@ -58,7 +58,7 @@ class Goods
   int quantityUnits;
 int dimension;
 int weight;
-isA Ressource;
+isA Resource;
 }
 
 class Air
@@ -76,7 +76,7 @@ class Land
   isA Transportation;
 }
 
-class RessourceNeeds
+class ResourceNeeds
 {
     int requiredQuantity;
 }
@@ -93,7 +93,7 @@ class Coordinator
 {
   Name;
   id;
-  * -- * Ressource;
+  * -- * Resource;
   * -- * Emergency;
   * -- * Transportation;
 }
@@ -110,7 +110,7 @@ class Emergency{
       }
       
     ResourceNeeded{
-      findNeededRessource -> ResourceFound;
+      findNeededResource -> ResourceFound;
     }
     
       ResourceFound{
@@ -175,7 +175,7 @@ class Resource{
     }
     
     TransportationArriving{
-      sendRessource -> HelpingEmergency;
+      sendResource -> HelpingEmergency;
     }
     
     HelpingEmergency{}

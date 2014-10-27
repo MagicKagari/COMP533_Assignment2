@@ -17,7 +17,7 @@ public class Coordinator
   private String id;
 
   //Coordinator Associations
-  private List<Ressource> ressources;
+  private List<Resource> resources;
   private List<Emergency> emergencies;
   private List<Transportation> transportations;
 
@@ -29,7 +29,7 @@ public class Coordinator
   {
     name = aName;
     id = aId;
-    ressources = new ArrayList<Ressource>();
+    resources = new ArrayList<Resource>();
     emergencies = new ArrayList<Emergency>();
     transportations = new ArrayList<Transportation>();
   }
@@ -64,33 +64,33 @@ public class Coordinator
     return id;
   }
 
-  public Ressource getRessource(int index)
+  public Resource getResource(int index)
   {
-    Ressource aRessource = ressources.get(index);
-    return aRessource;
+    Resource aResource = resources.get(index);
+    return aResource;
   }
 
-  public List<Ressource> getRessources()
+  public List<Resource> getResources()
   {
-    List<Ressource> newRessources = Collections.unmodifiableList(ressources);
-    return newRessources;
+    List<Resource> newResources = Collections.unmodifiableList(resources);
+    return newResources;
   }
 
-  public int numberOfRessources()
+  public int numberOfResources()
   {
-    int number = ressources.size();
+    int number = resources.size();
     return number;
   }
 
-  public boolean hasRessources()
+  public boolean hasResources()
   {
-    boolean has = ressources.size() > 0;
+    boolean has = resources.size() > 0;
     return has;
   }
 
-  public int indexOfRessource(Ressource aRessource)
+  public int indexOfResource(Resource aResource)
   {
-    int index = ressources.indexOf(aRessource);
+    int index = resources.indexOf(aResource);
     return index;
   }
 
@@ -154,84 +154,84 @@ public class Coordinator
     return index;
   }
 
-  public static int minimumNumberOfRessources()
+  public static int minimumNumberOfResources()
   {
     return 0;
   }
 
-  public boolean addRessource(Ressource aRessource)
+  public boolean addResource(Resource aResource)
   {
     boolean wasAdded = false;
-    if (ressources.contains(aRessource)) { return false; }
-    ressources.add(aRessource);
-    if (aRessource.indexOfCoordinator(this) != -1)
+    if (resources.contains(aResource)) { return false; }
+    resources.add(aResource);
+    if (aResource.indexOfCoordinator(this) != -1)
     {
       wasAdded = true;
     }
     else
     {
-      wasAdded = aRessource.addCoordinator(this);
+      wasAdded = aResource.addCoordinator(this);
       if (!wasAdded)
       {
-        ressources.remove(aRessource);
+        resources.remove(aResource);
       }
     }
     return wasAdded;
   }
 
-  public boolean removeRessource(Ressource aRessource)
+  public boolean removeResource(Resource aResource)
   {
     boolean wasRemoved = false;
-    if (!ressources.contains(aRessource))
+    if (!resources.contains(aResource))
     {
       return wasRemoved;
     }
 
-    int oldIndex = ressources.indexOf(aRessource);
-    ressources.remove(oldIndex);
-    if (aRessource.indexOfCoordinator(this) == -1)
+    int oldIndex = resources.indexOf(aResource);
+    resources.remove(oldIndex);
+    if (aResource.indexOfCoordinator(this) == -1)
     {
       wasRemoved = true;
     }
     else
     {
-      wasRemoved = aRessource.removeCoordinator(this);
+      wasRemoved = aResource.removeCoordinator(this);
       if (!wasRemoved)
       {
-        ressources.add(oldIndex,aRessource);
+        resources.add(oldIndex,aResource);
       }
     }
     return wasRemoved;
   }
 
-  public boolean addRessourceAt(Ressource aRessource, int index)
+  public boolean addResourceAt(Resource aResource, int index)
   {  
     boolean wasAdded = false;
-    if(addRessource(aRessource))
+    if(addResource(aResource))
     {
       if(index < 0 ) { index = 0; }
-      if(index > numberOfRessources()) { index = numberOfRessources() - 1; }
-      ressources.remove(aRessource);
-      ressources.add(index, aRessource);
+      if(index > numberOfResources()) { index = numberOfResources() - 1; }
+      resources.remove(aResource);
+      resources.add(index, aResource);
       wasAdded = true;
     }
     return wasAdded;
   }
 
-  public boolean addOrMoveRessourceAt(Ressource aRessource, int index)
+  public boolean addOrMoveResourceAt(Resource aResource, int index)
   {
     boolean wasAdded = false;
-    if(ressources.contains(aRessource))
+    if(resources.contains(aResource))
     {
       if(index < 0 ) { index = 0; }
-      if(index > numberOfRessources()) { index = numberOfRessources() - 1; }
-      ressources.remove(aRessource);
-      ressources.add(index, aRessource);
+      if(index > numberOfResources()) { index = numberOfResources() - 1; }
+      resources.remove(aResource);
+      resources.add(index, aResource);
       wasAdded = true;
     } 
     else 
     {
-      wasAdded = addRessourceAt(aRessource, index);
+      wasAdded = addResourceAt(aResource, index);
     }
     return wasAdded;
   }
@@ -402,11 +402,11 @@ public class Coordinator
 
   public void delete()
   {
-    ArrayList<Ressource> copyOfRessources = new ArrayList<Ressource>(ressources);
-    ressources.clear();
-    for(Ressource aRessource : copyOfRessources)
+    ArrayList<Resource> copyOfResources = new ArrayList<Resource>(resources);
+    resources.clear();
+    for(Resource aResource : copyOfResources)
     {
-      aRessource.removeCoordinator(this);
+      aResource.removeCoordinator(this);
     }
     ArrayList<Emergency> copyOfEmergencies = new ArrayList<Emergency>(emergencies);
     emergencies.clear();

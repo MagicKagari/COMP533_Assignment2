@@ -5,24 +5,24 @@ package ERDS;
 import java.util.*;
 
 // line 79 "../classdiagram.ump"
-public class RessourceNeeds
+public class ResourceNeeds
 {
 
   //------------------------
   // MEMBER VARIABLES
   //------------------------
 
-  //RessourceNeeds Attributes
+  //ResourceNeeds Attributes
   private int requiredQuantity;
 
-  //RessourceNeeds Associations
+  //ResourceNeeds Associations
   private List<Emergency> emergencies;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public RessourceNeeds(int aRequiredQuantity)
+  public ResourceNeeds(int aRequiredQuantity)
   {
     requiredQuantity = aRequiredQuantity;
     emergencies = new ArrayList<Emergency>();
@@ -85,13 +85,13 @@ public class RessourceNeeds
     boolean wasAdded = false;
     if (emergencies.contains(aEmergency)) { return false; }
     emergencies.add(aEmergency);
-    if (aEmergency.indexOfRessourceNeed(this) != -1)
+    if (aEmergency.indexOfResourceNeed(this) != -1)
     {
       wasAdded = true;
     }
     else
     {
-      wasAdded = aEmergency.addRessourceNeed(this);
+      wasAdded = aEmergency.addResourceNeed(this);
       if (!wasAdded)
       {
         emergencies.remove(aEmergency);
@@ -110,13 +110,13 @@ public class RessourceNeeds
 
     int oldIndex = emergencies.indexOf(aEmergency);
     emergencies.remove(oldIndex);
-    if (aEmergency.indexOfRessourceNeed(this) == -1)
+    if (aEmergency.indexOfResourceNeed(this) == -1)
     {
       wasRemoved = true;
     }
     else
     {
-      wasRemoved = aEmergency.removeRessourceNeed(this);
+      wasRemoved = aEmergency.removeResourceNeed(this);
       if (!wasRemoved)
       {
         emergencies.add(oldIndex,aEmergency);
@@ -163,7 +163,7 @@ public class RessourceNeeds
     emergencies.clear();
     for(Emergency aEmergency : copyOfEmergencies)
     {
-      aEmergency.removeRessourceNeed(this);
+      aEmergency.removeResourceNeed(this);
     }
   }
 

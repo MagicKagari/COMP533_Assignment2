@@ -16,9 +16,9 @@ public class Charity extends Organization
   // CONSTRUCTOR
   //------------------------
 
-  public Charity(String aName, String aLocation, String aAvailableRessources, Emergency aEmergency)
+  public Charity(String aName, String aLocation, String aAvailableResources, Emergency aEmergency)
   {
-    super(aName, aLocation, aAvailableRessources, aEmergency);
+    super(aName, aLocation, aAvailableResources, aEmergency);
   }
 
   //------------------------
